@@ -20,7 +20,7 @@
 
 ## 🔭 Overview
 
-falar sobre a comunicação entre os codigos e visualização do artigo em LaTex
+falar sobre a comunicação entre os códigos (muito provavelmente só pelas pastas GUI e arduino, os outros arquivos não fazem parte do projeto principal, são complementos) e da visualização do artigo em LaTex
 
 ## 💻 Technologies
 
