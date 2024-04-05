@@ -26,9 +26,10 @@ falar sobre a comunicação entre os codigos e link do artigo
 
 - C/C++ for arduino (.ino)
 - Python (.py)
+- MATLAB
 - ...
 
-[![Tec](https://skillicons.dev/icons?i=py,cpp,vscode,ino)](https://skillicons.dev)
+[![Tec](https://skillicons.dev/icons?i=py,cpp,vscode,blender,latex,matlab)](https://skillicons.dev)
 
 add links para as respectivas documentações ou sites oficiais
 
