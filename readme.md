@@ -3,7 +3,7 @@
 
 
 <div align="center">
-  <strong>🚀 add descrição </strong>
+  <strong>🚀 add descrição (resumo do projeto) </strong>
 </div>
 
 <div align="center">
@@ -28,7 +28,7 @@ falar sobre a comunicação entre os codigos e link do artigo
 - Python (.py)
 - ...
 
-[![Tec](https://skillicons.dev/icons?i=py,cpp)](https://skillicons.dev)
+[![Tec](https://skillicons.dev/icons?i=py,cpp,vscode)](https://skillicons.dev)
 
 add links para as respectivas documentações ou sites oficiais
 
