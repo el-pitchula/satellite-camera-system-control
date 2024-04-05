@@ -69,4 +69,4 @@ If you want to contribute to the project, follow these steps:
    ```
 6. Open a pull request to have your changes reviewed and incorporated into the project.
 
-<b><p>Enjoy the project!</p></b>
+<b><br>Enjoy the project!</br></b>
