@@ -1,5 +1,5 @@
 <h1 align="center">PID control of the
-<p>satellite camera system with Arduino<p></h1>
+<p>satellite-camera system with Arduino<p></h1>
 
 
 <div align="center">
