@@ -27,6 +27,7 @@ falar sobre a comunicação entre os codigos e link do artigo
 - C/C++ -> arduino (.ino)
 - Python (.py)
 - ...
+
 [![Tec](https://skillicons.dev/icons?i=py,cpp)](https://skillicons.dev)
 
 add links para as respectivas documentações ou sites oficiais
