@@ -34,7 +34,7 @@ add links para as respectivas documentações ou sites oficiais
 
 ## ⚙️ Environment Setting
 
-Configuração do Ambiente: fornecer instruções claras e detalhadas sobre como configurar o ambiente de desenvolvimento localmente:
+Configuração do Ambiente: fornecer instruções claras e detalhadas sobre como configurar o ambiente de desenvolvimento localmente (com imagens):
 
 - Pré-requisitos
 - Instalação de dependências
