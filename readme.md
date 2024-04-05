@@ -1,5 +1,5 @@
-<h1 align="center">Controle PID do sistema
-<p>câmera-satélite com arduino<p></h1>
+<h1 align="center">PID control of the
+<p>satellite camera system with Arduino<p></h1>
 
 
 <div align="center">
@@ -13,10 +13,10 @@
 
 ## 📖 Índice
 
-- [Visão Geral](#visão-geral)
-- [Tecnologias](#tecnologias)
-- [Configuração do Ambiente](#configuração-do-ambiente)
-- [Como Contribuir](#como-contribuir)
+- [Overview](#visão-geral)
+- [Technologies](#tecnologias)
+- [Environment Setting](#configuração-do-ambiente)
+- [How to Contribute](#como-contribuir)
 
 ## 🔭 Visão Geral
 
