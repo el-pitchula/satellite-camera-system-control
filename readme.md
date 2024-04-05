@@ -29,7 +29,7 @@ falar sobre a comunicação entre os codigos e link do artigo
 - MATLAB
 - ...
 
-[![Tec](https://skillicons.dev/icons?i=py,cpp,vscode,blender,latex,matlab)](https://skillicons.dev)
+[![Tec](https://skillicons.dev/icons?i=py,cpp,vscode,blender,matlab)](https://skillicons.dev)
 
 add links para as respectivas documentações ou sites oficiais
 
