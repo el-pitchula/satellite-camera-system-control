@@ -24,7 +24,7 @@ falar sobre a comunicação entre os codigos e link do artigo
 
 ## 💻 Technologies
 
-- C/C++ -> arduino (.ino)
+- C/C++ for arduino (.ino)
 - Python (.py)
 - ...
 
@@ -50,6 +50,7 @@ fornecer exemplos de comandos ou scripts necessários para executar o projeto co
 If you want to contribute to the project, follow these steps:
 
 1. Fork the repository and clone it to your local machine.
+
 2. Create a new branch for your modifications:
    ```
    git checkout -b my-branch
