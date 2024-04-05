@@ -24,7 +24,7 @@ falar sobre a comunicação entre os codigos e link do artigo
 
 ## 💻 Tecnologias (add icons)
 
-- C/C++ -> arduino (.ino)
+- C/C++ -> arduino (.ino) [![My Skills](https://skillicons.dev/icons?i=py)](https://skillicons.dev)
 - Python (.py)
 - ...
 
