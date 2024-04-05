@@ -13,16 +13,16 @@
 
 ## 📖 Índice
 
-- [Overview](#visão-geral)
-- [Technologies](#tecnologias)
-- [Environment Setting](#configuração-do-ambiente)
-- [How to Contribute](#como-contribuir)
+- [Overview](#overview)
+- [Technologies](#technologies)
+- [Environment Setting](#environment-setting)
+- [How to Contribute](#how-to-contribute)
 
-## 🔭 Visão Geral
+## 🔭 Overview
 
 falar sobre a comunicação entre os codigos e link do artigo
 
-## 💻 Tecnologias (add icons)
+## 💻 Technologies
 
 - C/C++ -> arduino (.ino)
 - Python (.py)
@@ -32,9 +32,9 @@ falar sobre a comunicação entre os codigos e link do artigo
 
 add links para as respectivas documentações ou sites oficiais
 
-## ⚙️ Configuração do Ambiente
+## ⚙️ Environment Setting
 
-fornecer instruções claras e detalhadas sobre como configurar o ambiente de desenvolvimento localmente:
+Configuração do Ambiente: fornecer instruções claras e detalhadas sobre como configurar o ambiente de desenvolvimento localmente:
 
 - Pré-requisitos
 - Instalação de dependências
@@ -45,28 +45,28 @@ fornecer instruções claras e detalhadas sobre como configurar o ambiente de de
 
 fornecer exemplos de comandos ou scripts necessários para executar o projeto corretamente
 
-## Como Contribuir
+## How to Contribute
 
-Se você deseja contribuir para o projeto, siga estas etapas:
+If you want to contribute to the project, follow these steps:
 
-1. Faça um fork do repositório e clone-o em sua máquina local.
-2. Crie uma nova branch para suas modificações:
+1. Fork the repository and clone it to your local machine.
+2. Create a new branch for your modifications:
    ```
-   git checkout -b minha-branch
+   git checkout -b my-branch
    ```
-3. Faça as modificações desejadas e adicione-as ao stage:
+3. Make the desired changes and add them to the stage:
    ```
    git add .
    ```
-4. Faça um commit das suas alterações:
+4. Commit your changes:
    ```
-   git commit -m "Minhas modificações"
+   git commit -m "My modifications"
    ```
-5. Envie suas alterações para o repositório remoto:
+5. Push your changes to the remote repository:
    ```
-   git push origin minha-branch
+   git push origin my-branch
    ```
-6. Abra um pull request para que suas modificações sejam revisadas e incorporadas ao projeto.
+6. Open a pull request to have your changes reviewed and incorporated into the project.
 
 
-Aproveite o projeto!
+Enjoy the project!
