@@ -20,13 +20,13 @@
 
 ## 🔭 Overview
 
-falar sobre a comunicação entre os codigos e link do artigo
+falar sobre a comunicação entre os codigos e visualização do artigo em LaTex
 
 ## 💻 Technologies
 
 - C/C++ for arduino (.ino)
 - Python (.py)
-- MATLAB
+- MATLAB (.m)
 - ...
 
 [![Tec](https://skillicons.dev/icons?i=py,cpp,vscode,blender,matlab)](https://skillicons.dev)
