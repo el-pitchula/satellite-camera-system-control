@@ -1,5 +1,5 @@
 <h1 align="center">Controle PID do sistema</h1>
-<h1 align="center">câmera-satélite com arduino</h1>
+<p align="center">câmera-satélite com arduino</p>
 
 
 <div align="center">
