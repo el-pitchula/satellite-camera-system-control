@@ -1,0 +1,20 @@
+Físico:
+- testar a IDE do arduino (plotter, serial e bilbiotecas)
+- testar o sensor e o sistema dos motores
+- testar os dois juntos
+- implementar o PID
+- testar câmera
+
+Programas:
+- PlatformIO
+- Processing (talvez não utilise)
+
+GUI:
+- fazer interface (NF)
+- testar cada funcionalidade física da interface
+- testar funcionalidade dos graficos e monitores
+- testar funcionalidades adicionais (3D e janelas)
+
+Artigo:
+- criar LaTex
+- 
