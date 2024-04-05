@@ -11,7 +11,7 @@
   <p></p>
 </div>
 
-## 📖 Índice
+## 📖 Index
 
 - [Overview](#overview)
 - [Technologies](#technologies)
