@@ -1,4 +1,4 @@
-include<Wire.h> //Biblioteca para comunicação I2C
+#include <Wire.h> //Biblioteca para comunicação I2C
 
 const int MPU_addr=0x68; //Endereço do sensor
 
