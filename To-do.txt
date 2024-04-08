@@ -17,4 +17,4 @@ GUI:
 
 Artigo:
 - criar LaTex
-- 
+- cálculos e FT
