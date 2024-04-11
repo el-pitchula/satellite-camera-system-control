@@ -36,7 +36,7 @@ Estudar:
 - PSO para ML, DL e RL (matlab)
     - tuning (pro controle PID)
 - Python: tkinter e outrs extenxões GUI
-- pandas pra real-time dataframe (ML)
+- pandas pra real-time dataframe (ML) ou PHP com mysql
 - processing
 - filtro complementar para giroscópio
 
