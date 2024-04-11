@@ -18,3 +18,23 @@ GUI:
 Artigo:
 - criar LaTex
 - cálculos e FT
+
+links:
+- físico:
+- GUI:
+    - https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter
+    - https://www.tutorialspoint.com/python/python_gui_programming.htm
+    - https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/index.html
+    - https://www.youtube.com/watch?v=HjNHATw6XgY&list=PLQVvvaa0QuDclKx-QpC9wntnURXVJqLyk
+- estudo:
+
+Estudar:
+- princípio físico do giroscópio
+- PSO para ML, DL e RL (matlab)
+- Python: tkinter e outrs extenxões GUI
+- pandas pra real-time dataframe
+- processing
+
+Arquitetura do software:
+- diagrama geral / fluxograma
+- diagrama de classes UML
