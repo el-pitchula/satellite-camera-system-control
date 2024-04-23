@@ -6,7 +6,7 @@ import tkinter.messagebox as tkmb
 
 # usar pandas dataframe pro banco de dados.
 # converter o dataframe usando df.to_numpy.tolist()
-pokemon_info = [['Bulbasaur', 'Grass', '318'], ['Ivysaur', 'Grass', '405'],]
+info = [['Bulbasaur', 'Grass', '318'], ['Ivysaur', 'Grass', '405'],]
 
 
 frame_styles = {"relief": "groove",
@@ -279,7 +279,7 @@ class Some_Widgets(GUI):
         treescroll.pack(side="right", fill="y")
 
         def Load_data():
-            for row in pokemon_info:
+            for row in info:
                 tv1.insert("", "end", values=row)
 
         def Refresh_data():
