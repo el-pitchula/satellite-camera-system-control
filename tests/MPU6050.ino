@@ -11,7 +11,7 @@ void setup(){
   Wire.write(0); // Manda 0 e "acorda" o MPU 6050
   Wire.endTransmission(true);
 
-  Serial.begin(9600);=
+  Serial.begin(9600);
 }
 
 void loop(){
