@@ -4,7 +4,7 @@
 #include <utility/imumaths.h>
 #include <math.h>
 
-#define BNO055_SAMPLERATE_DELAY_MS(100) //taxa de amostragem e atraso de 100 ms
+#define BNO055_SAMPLERATE_DELAY_MS (100) //taxa de amostragem e atraso de 100 ms
 Adafruit_BNO055 myIMU = Adafruit_BNO055();
 
 float thetaM; //medido
