@@ -72,8 +72,8 @@ void loop() {
   Serial.print(",");
 
   Serial.print(system);
-
   Serial.print(",");
+  
   Serial.print(thetaM);
   Serial.print(",");
   Serial.print(phiM);

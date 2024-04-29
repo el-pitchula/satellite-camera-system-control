@@ -5,7 +5,7 @@
 #include <utility/imumaths.h>
 #include <math.h>
 
-#define BNO055_SAMPLERATE_DELAY_MS(100)
+#define BNO055_SAMPLERATE_DELAY_MS (100)
 Adafruit_BNO055 myIMU = Adafruit_BNO055();
 
 float thetaM;
@@ -17,7 +17,8 @@ float phiFnew;
 
 float thetaG=0;
 float phiG=0;
-float dt; //altera no tempo pela ultima medida
+float dt; //altera no tempo pela ultima medida 
+//(baseado na velocidade angular (ômega) do eixo em questão)
 unsigned long millisOld;
 
 void setup() {
@@ -46,7 +47,7 @@ void loop() {
   dt=(millis()-millisOld); //variação tempo
   millisOld=millis();
 
-  thetaG=thetaG+gyr.y()*dt;
+  thetaG=thetaG+gyr.y()*dt; // thetaG + ômega (velocidade angular) * dt
   phiG=phiG+gyr.x()*dt;
 
   Serial.print(acc.x()/9.8);
@@ -70,8 +71,8 @@ void loop() {
   Serial.print(",");
 
   Serial.print(system);
-
   Serial.print(",");
+
   Serial.print(thetaM);
   Serial.print(",");
   Serial.print(phiM);
