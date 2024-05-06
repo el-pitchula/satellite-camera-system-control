@@ -1,4 +1,3 @@
-// pra accel e gyro juntos na vdd mas fds, esse é o código mais completo
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
@@ -15,10 +14,21 @@ float thetaFnew;
 float phiFold=0;
 float phiFnew;
 
+float theta; 
+float phi;
+
 float thetaG=0;
 float phiG=0;
-float dt; //altera no tempo pela ultima medida 
-//(baseado na velocidade angular (ômega) do eixo em questão)
+
+// p/o magnetrômetro
+float Xm;
+float Ym;
+float psi;
+//
+float thetaRad;
+float phiRad;
+
+float dt;
 unsigned long millisOld;
 
 void setup() {
@@ -36,19 +46,31 @@ void loop() {
 
   imu::Vector<3> acc = myIMU.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
   imu::Vector<3> gyr = myIMU.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
-        //+ um vetor e add do segundo grau de liberdade 
+  imu::Vector<3> mag = myIMU.getVector(Adafruit_BNO055::VECTOR_MAGNETOMETER);
 
   thetaM=-atan2(acc.x()/9.8,acc.z()/9.8)/2/3.141592654*360;
-  phiM=atan2(acc.y()/9.8,acc.z()/9.8)/2/3.141592654*360;
+  phiM=-atan2(acc.y()/9.8,acc.z()/9.8)/2/3.141592654*360;
 
   thetaFnew=.95*thetaFold+.05*thetaM;
   phiFnew=.95*phiFold+.05*phiM;
 
-  dt=(millis()-millisOld); //variação tempo
+  dt=(millis()-millisOld)/1000.;
   millisOld=millis();
 
-  thetaG=thetaG+gyr.y()*dt; // thetaG + ômega (velocidade angular) * dt
-  phiG=phiG+gyr.x()*dt;
+  thetaG=thetaG+gyr.y()*dt;
+  phiG=phiG-gyr.x()*dt;
+
+  theta=(theta+gyr.y()*dt)*.95+thetaM*.05;
+  phi=(phi-gyr.x()*dt)*.95+phiM*.05;
+
+  //
+  phiRad=phi/360*(2*3.14);
+  thetaRad=theta/360*(2*3.14);
+
+  //mag
+  Xm=mag.x()*cos(thetaRad)-mag.y()*sin(phiRad)*sin(thetaRad)+mag.z()*cos(phiRad)*sin(thetaRad); //n tenho certeza ainda
+  Ym=mag.y()*cos(phiRad)+mag.z()*sin(phiRad);
+  psi=atan2(Ym,Xm)/(2*3.14)*360;
 
   Serial.print(acc.x()/9.8);
   Serial.print(",");
@@ -57,10 +79,10 @@ void loop() {
   Serial.print(acc.z()/9.8);
   Serial.print(",");
 
-  Serial.print(thetaG); //gyro após add variação do tempo
+  Serial.print(",");
+  Serial.print(thetaG);
   Serial.print(",");
   Serial.print(phiG);
-  Serial.print(",");
 
 
   Serial.print(accel);
@@ -69,20 +91,29 @@ void loop() {
   Serial.print(",");
   Serial.print(mg);
   Serial.print(",");
-
   Serial.print(system);
   Serial.print(",");
+
 
   Serial.print(thetaM);
   Serial.print(",");
   Serial.print(phiM);
-
+  Serial.print(",");
   Serial.print(thetaFnew);
   Serial.print(",");
-  Serial.println(phiFnew);
+  Serial.print(phiFnew);
+
+
+  Serial.print(theta);
+  Serial.print(",");
+  Serial.print(phi);
+
+  Serial.print(",");
+  Serial.println(psi);
 
   phiFold=phiFnew;
   thetaFold=thetaFnew;
 
+ 
   delay(BNO055_SAMPLERATE_DELAY_MS);
 }
