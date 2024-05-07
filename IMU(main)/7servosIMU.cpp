@@ -1,4 +1,5 @@
 // sistema completo antes da aplicação dos controles
+// estudo da lib Quaternion (angulos de Euler...)
 
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
