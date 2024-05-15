@@ -1,81 +1,64 @@
 #include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_MPU6050.h>
-#include <utility/imumaths.h>
+#include <MPU6050.h>
 #include <math.h>
 
-#define MPU6050_SAMPLERATE_DELAY_MS (100)
-Adafruit_MPU6050 mpu;
+#define MPU6050_SAMPLERATE_DELAY_MS (100) // Sample rate and delay of 100 ms
+MPU6050 mpu;
 
-float thetaM;
+float thetaM; // Measured
 float phiM;
-float thetaFold=0;
+float thetaFold = 0; // First
 float thetaFnew;
-float phiFold=0;
+float phiFold = 0;
 float phiFnew;
 
-// p/o filtro complementar (Gy e Ac juntos)
-float theta; // p/def theta e phi geral 
-float phi;
-
-float thetaG=0;
-float phiG=0;
-float dt;
+float thetaG = 0; // Gyro
+float phiG = 0;
+float dt; // Time variation
 unsigned long millisOld;
 
 void setup() {
   Serial.begin(115200);
-  mpu.begin();
+  Wire.begin();
+  mpu.initialize();
   delay(1000);
-  mpu.setAccelerometerRange(MPU6050_RANGE_2_G);
-  mpu.setGyroRange(MPU6050_RANGE_250_DEG);
-  millisOld=millis();
+  millisOld = millis();
 }
 
 void loop() {
-  sensors_event_t accel, gyro;
-  mpu.getEvent(&accel, &gyro);
-  
-  imu::Vector<3> acc = accel.acceleration;
-  imu::Vector<3> gyr = gyro.gyro;
+  int16_t ax, ay, az;
+  mpu.getAcceleration(&ax, &ay, &az);
 
-  thetaM=-atan2(acc.x,acc.z)/2/3.141592654*360;
-  phiM=-atan2(acc.y,acc.z)/2/3.141592654*360;
+  thetaM = -atan2((float)ax / 16384.0, (float)az / 16384.0) / 2 / 3.141592654 * 360;
+  phiM = atan2((float)ay / 16384.0, (float)az / 16384.0) / 2 / 3.141592654 * 360;
 
-  thetaFnew=.95*thetaFold+.05*thetaM;
-  phiFnew=.95*phiFold+.05*phiM;
+  thetaFnew = 0.95 * thetaFold + 0.05 * thetaM;
+  phiFnew = 0.95 * phiFold + 0.05 * phiM;
 
-  dt=(millis()-millisOld)/1000.;
-  millisOld=millis();
+  int16_t gx, gy, gz;
+  mpu.getRotation(&gx, &gy, &gz);
+  dt = (millis() - millisOld) / 1000.0; // Time variation in seconds
+  millisOld = millis();
 
-  thetaG=thetaG+gyr.y*dt;
-  phiG=phiG-gyr.x*dt;
+  thetaG += ((float)gy / 16384.0) * dt; // thetaG + omega (angular velocity) * dt
+  phiG += ((float)gx / 16384.0) * dt;
 
-    // filtro:
-  theta=(theta+gyr.y*dt)*.95+thetaM*.05;
-  phi=(phi-gyr.x*dt)*.95+phiM*.05;
+  // Complementary filter
+  float theta = (thetaG + thetaM) * 0.95 + thetaFnew * 0.05;
+  float phi = (phiG + phiM) * 0.95 + phiFnew * 0.05;
 
-  Serial.print(acc.x/9.8);
+  Serial.print((float)ax / 16384.0);
   Serial.print(",");
-  Serial.print(acc.y/9.8);
+  Serial.print((float)ay / 16384.0);
   Serial.print(",");
-  Serial.print(acc.z/9.8);
+  Serial.print((float)az / 16384.0);
   Serial.print(",");
 
-  Serial.print(",");
-  Serial.print(thetaG);
+  Serial.print(thetaG); // Gyro after adding time variation
   Serial.print(",");
   Serial.print(phiG);
-
-
-  Serial.print(accel.acceleration);
   Serial.print(",");
-  Serial.print(gyro.gyro);
-  Serial.print(",");
-  Serial.print(system);
-  Serial.print(",");
-
-
+/*
   Serial.print(thetaM);
   Serial.print(",");
   Serial.print(phiM);
@@ -83,15 +66,13 @@ void loop() {
   Serial.print(thetaFnew);
   Serial.print(",");
   Serial.print(phiFnew);
-
-
+*/
   Serial.print(theta);
   Serial.print(",");
   Serial.println(phi);
 
-  phiFold=phiFnew;
-  thetaFold=thetaFnew;
-
+  phiFold = phiFnew;
+  thetaFold = thetaFnew;
 
   delay(MPU6050_SAMPLERATE_DELAY_MS);
 }

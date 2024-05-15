@@ -14,18 +14,18 @@ void setup() {
 void loop() {
     for (pos=0; pos<=180; pos=pos+1){ //ordens de giro (alterar pra teste)
         panServo.write(pos);
-        delay(15);
+        delay(150);
     }
     for (pos=180; pos>=0; pos=pos-1){ // vai e volta 180°
         panServo.write(pos);
-        delay(15);
+        delay(150);
     }
     for (pos=0; pos<=180; pos=pos+1){ //para o outro servo (tilt)
         tiltServo.write(pos);
-        delay(15);
+        delay(150);
     }
     for (pos=180; pos<=0; pos=pos-1){
-        tiltpanServo.write(pos);
-        delay(15);
+        tiltServo.write(pos);
+        delay(150);
     }
 }

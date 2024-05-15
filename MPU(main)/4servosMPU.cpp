@@ -1,103 +1,122 @@
+// utility/imumaths.h com quaternion.h (angulos de euler)
+
 #include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_MPU6050.h>
-#include <utility/imumaths.h>
+#include <MPU6050.h>
 #include <math.h>
 #include <Servo.h>
 
-Servo pitchServo;
-Servo rollServo;
+#define MPU6050_SAMPLERATE_DELAY_MS (100) // Sample rate and delay of 100 ms
+MPU6050 mpu;
 
-float q0;
-float q1;
-float q2;
-float q3;
+float thetaM; // Measured
+float phiM;
+float thetaFold = 0; // First
+float thetaFnew;
+float phiFold = 0;
+float phiFnew;
 
-float rollTarget=0;
+float thetaG = 0; // Gyro
+float phiG = 0;
+float dt; // Time variation
+unsigned long millisOld;
+
+Servo pitchServo; // Pitch servo
+Servo rollServo; // Roll servo
+
+float rollTarget = 0;
 float rollActual;
 float rollError;
-float rollServoVal=90;
+float rollServoVal = 90;
 
-float pitchTarget=0;
+float pitchTarget = 0;
 float pitchActual;
 float pitchError;
-float pitchServoVal=90;
-
-#define MPU6050_SAMPLERATE_DELAY_MS (100)
-Adafruit_MPU6050 mpu;
+float pitchServoVal = 90;
 
 void setup() {
-    Serial.begin(115200);
-    mpu.begin();
-    delay(1000);
-    mpu.setAccelerometerRange(MPU6050_RANGE_2_G);
-    mpu.setGyroRange(MPU6050_RANGE_250_DEG);
-    rollServo.attach(2);
-    pitchServo.attach(3);
+  Serial.begin(115200);
+  Wire.begin();
+  mpu.initialize();
+  delay(1000);
+  millisOld = millis();
 
-    rollServo.write(rollServoVal);
-    delay(20);
-    pitchServo.write(pitchServoVal);
-    delay(20);
+  pitchServo.attach(2);
+  rollServo.attach(3);
+
+  pitchServo.write(pitchServoVal);
+  delay(20);
+  rollServo.write(rollServoVal);
+  delay(20);
 }
 
 void loop() {
-    sensors_event_t accel, gyro;
-    mpu.getEvent(&accel, &gyro);
-    
-    imu::Quaternion quat = mpu.getQuaternion();
+  int16_t ax, ay, az;
+  mpu.getAcceleration(&ax, &ay, &az);
 
-    q0 = quat.w();
-    q1 = quat.x();
-    q2 = quat.y();
-    q3 = quat.z();
+  thetaM = -atan2((float)ax / 16384.0, (float)az / 16384.0) / 2 / 3.141592654 * 360;
+  phiM = atan2((float)ay / 16384.0, (float)az / 16384.0) / 2 / 3.141592654 * 360;
 
-    rollActual = atan2(2 * (q0 * q1 + q2 * q3), 1 - 2 * (q1 * q1 + q2 * q2));
-    pitchActual = asin(2 * (q0 * q2 - q3 * q1));
+  thetaFnew = 0.95 * thetaFold + 0.05 * thetaM;
+  phiFnew = 0.95 * phiFold + 0.05 * phiM;
 
-    rollActual = rollActual / (2 * 3.141592654) * 360;
-    pitchActual = pitchActual / (2 * 3.141592654) * 360;
+  int16_t gx, gy, gz;
+  mpu.getRotation(&gx, &gy, &gz);
+  dt = (millis() - millisOld) / 1000.0; // Time variation in seconds
+  millisOld = millis();
 
-    rollError = rollTarget - rollActual;
-    pitchError = pitchTarget - pitchActual;
+  thetaG += ((float)gy / 16384.0) * dt; // thetaG + omega (angular velocity) * dt
+  phiG += ((float)gx / 16384.0) * dt;
 
-    if (pitchError > 1.5) {
-        pitchServoVal = pitchServoVal + 1;
-        pitchServo.write(pitchServoVal);
-        delay(20);
-    }
-    if (pitchError < -1.5) {
-        pitchServoVal = pitchServoVal - 1;
-        pitchServo.write(pitchServoVal);
-        delay(20);
-    }
+  // Complementary filter
+  float theta = (thetaG + thetaM) * 0.95 + thetaFnew * 0.05;
+  float phi = (phiG + phiM) * 0.95 + phiFnew * 0.05;
 
-    if (rollError > 1.5) {
-        rollServoVal = rollServoVal + 1;
-        rollServo.write(rollServoVal);
-        delay(20);
-    }
-    if (rollError < -1.5) {
-        rollServoVal = rollServoVal - 1;
-        rollServo.write(rollServoVal);
-        delay(20);
-    }
+  rollActual = theta;
+  pitchActual = phi;
 
-    Serial.print(rollTarget);
-    Serial.print(",");
-    Serial.print(rollActual);
-    Serial.print(",");
-    Serial.print(pitchTarget);
-    Serial.print(",");
-    Serial.print(pitchActual);
-    Serial.print(",");
-    Serial.print(accel.acceleration);
-    Serial.print(",");
-    Serial.print(gyro.gyro);
-    Serial.print(",");
-    Serial.print(0); // mg not available in MPU6050
-    Serial.print(",");
-    Serial.println(0); // system not available in MPU6050
+  rollError = rollTarget - rollActual;
+  pitchError = pitchTarget - pitchActual;
 
-    delay(MPU6050_SAMPLERATE_DELAY_MS);
+  if (pitchError > 1.5) {
+    pitchServoVal = pitchServoVal + 1;
+    pitchServo.write(pitchServoVal);
+    delay(20);
+  }
+  if (pitchError < -1.5) {
+    pitchServoVal = pitchServoVal - 1;
+    pitchServo.write(pitchServoVal);
+    delay(20);
+  }
+
+  if (rollError > 1.5) {
+    rollServoVal = rollServoVal + 1;
+    rollServo.write(rollServoVal);
+    delay(20);
+  }
+  if (rollError < -1.5) {
+    rollServoVal = rollServoVal - 1;
+    rollServo.write(rollServoVal);
+    delay(20);
+  }
+
+  Serial.print(rollTarget);
+  Serial.print(",");
+  Serial.print(rollActual);
+  Serial.print(",");
+  Serial.print(pitchTarget);
+  Serial.print(",");
+  Serial.print(pitchActual);
+  Serial.print(",");
+  Serial.print(thetaG); // Gyro after adding time variation
+  Serial.print(",");
+  Serial.print(phiG);
+  Serial.print(",");
+  Serial.print(theta);
+  Serial.print(",");
+  Serial.println(phi);
+
+  phiFold = phiFnew;
+  thetaFold = thetaFnew;
+
+  delay(MPU6050_SAMPLERATE_DELAY_MS);
 }
