@@ -65,7 +65,6 @@ void loop() {
   thetaG += ((float)gy / 16384.0) * dt; // thetaG + omega (angular velocity) * dt
   phiG += ((float)gx / 16384.0) * dt;
 
-  // filtro
   float theta = (thetaG + thetaM) * 0.95 + thetaFnew * 0.05;
   float phi = (phiG + phiM) * 0.95 + phiFnew * 0.05;
 
