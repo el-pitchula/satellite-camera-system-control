@@ -44,6 +44,8 @@ void loop()
 }
 
 //add o filtro complementar
+//mostrar mais sinais no serial e plotter (comparação filtro e PID)
+//provavelmente será apenas para X ou um eixo (ainda ñ tenho certeza)
 
 /*
 
@@ -80,8 +82,7 @@ void loop() {
   value = map(value,  -10, 10, 180, 0);
   servo.write(value);  
   Serial.println(value);
-  //delay(10);
-
+  delay(1000);
 }
 
 */
