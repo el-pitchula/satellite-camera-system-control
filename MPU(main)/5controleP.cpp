@@ -3,23 +3,23 @@
 #include <math.h>
 #include <Servo.h>
 
-#define MPU6050_SAMPLERATE_DELAY_MS (100) // Sample rate and delay of 100 ms
+#define MPU6050_SAMPLERATE_DELAY_MS (100)
 MPU6050 mpu;
 
-float thetaM; // Measured
+float thetaM;
 float phiM;
-float thetaFold = 0; // First
+float thetaFold = 0;
 float thetaFnew;
 float phiFold = 0;
 float phiFnew;
 
-float thetaG = 0; // Gyro
+float thetaG = 0;
 float phiG = 0;
-float dt; // Time variation
+float dt;
 unsigned long millisOld;
 
-Servo pitchServo; // Pitch servo
-Servo rollServo; // Roll servo
+Servo pitchServo;
+Servo rollServo;
 
 float rollTarget = 0;
 float rollActual;
@@ -59,13 +59,12 @@ void loop() {
 
   int16_t gx, gy, gz;
   mpu.getRotation(&gx, &gy, &gz);
-  dt = (millis() - millisOld) / 1000.0; // Time variation in seconds
+  dt = (millis() - millisOld) / 1000.0;
   millisOld = millis();
 
   thetaG += ((float)gy / 16384.0) * dt; // thetaG + omega (angular velocity) * dt
   phiG += ((float)gx / 16384.0) * dt;
 
-  // Complementary filter
   float theta = (thetaG + thetaM) * 0.95 + thetaFnew * 0.05;
   float phi = (phiG + phiM) * 0.95 + phiFnew * 0.05;
 
@@ -95,7 +94,7 @@ void loop() {
   Serial.print(",");
   Serial.print(pitchActual);
   Serial.print(",");
-  Serial.print(thetaG); // Gyro after adding time variation
+  Serial.print(thetaG);
   Serial.print(",");
   Serial.print(phiG);
   Serial.print(",");
