@@ -8,7 +8,7 @@ Adafruit_MPU6050 mpu;
 
 float setpoint = 0, errorSum = 0, lastError = 0, angleX = 0;
 float Kp, Ki, Kd;
-float Ku = 2.5, Tu = 0.5; // parâmetros Ziegler Nichols: Ganho crítico (Ku) e período oscilatório (Tu)
+float Ku = 2.5, Tu = 0.5; //parâmetros Ziegler Nichols: Ganho crítico (Ku) e período oscilatório (Tu)
 
 unsigned long lastTime = 0;
 const float alpha = 0.98;
