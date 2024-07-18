@@ -27,7 +27,7 @@ checkbox_2.grid(row=1, column=1, padx=20, pady=(0, 20), sticky="w")
 app.mainloop() # fim da janela
 
 """
-# ----------- Orientado a objeto: -----------
+# ----------- Orientado a objeto (a ordem importa): -----------
 
 class App(customtkinter.CTk):
     def __init__(self):
