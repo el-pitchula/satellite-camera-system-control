@@ -8,6 +8,7 @@ Físico:
 Programas:
 - PlatformIO
 - Processing (talvez não utilise)
+- TKinter, PySerial, Jupyter... (python libs)
 
 GUI:
 - fazer interface (NF)
